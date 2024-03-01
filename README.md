@@ -12,3 +12,7 @@ Alternatively, the list of dependencies:
 The project uses `yarn V2` (4.1) as its package manager. Yarn is intalled using `corepack`.
 
 > When using the Nix environment, `corepack enable` requires sudo privileges as `/nix/store` is group readonly.
+
+1. Install dependencies with `pnpm i`
+2. Start the development server in two terminal sessions with `pnpm watch` & `pnpm dev`. A monorepo-wide watch script is configured via `trubowatch/turbotree` in `turbotree.ts` (check out [here](https://www.npmjs.com/package/turbotree))
+3. Open the browser at `http://localhost:5173/` to access the frontend
