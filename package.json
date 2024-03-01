@@ -3,13 +3,16 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "watch": "tsx --tsconfig tsconfig.watch.json turbotree.ts",
     "lint": "turbo lint"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "prettier": "^3.1.1",
-    "turbo": "^1.12.4"
+    "turbo": "^1.12.4",
+    "turbotree": "^1.0.1",
+    "tsx": "^4.7.1"
   },
   "packageManager": "pnpm@8.9.0",
   "workspaces": [

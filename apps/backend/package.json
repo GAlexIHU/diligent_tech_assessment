@@ -1,0 +1,25 @@
+{
+  "name": "@repo/backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon",
+    "build": "esbuild --bundle src/index.ts --outdir=dist --platform=node --target=node20 --sourcemap"
+  },
+  "dependencies": {
+    "@repo/api": "workspace:*",
+    "@ts-rest/core": "^3.33.0",
+    "fastify": "^4.26.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20.10.6",
+    "esbuild": "^0.20.1",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.1.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
