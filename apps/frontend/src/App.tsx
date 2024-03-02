@@ -6,14 +6,14 @@ import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 
 const client = initQueryClient(api, {
-  baseUrl: "http://localhost:3001",
+  baseUrl: "http://localhost:3000",
   baseHeaders: {},
 });
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const result = client.movie.getMovies.useQuery([Math.random()], {
+  const result = client.movie.getMovies.useQuery(["1234"], {
     query: { searchTerm: "1234" },
   });
 

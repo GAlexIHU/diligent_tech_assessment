@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "nodemon",
-    "build": "esbuild --bundle src/index.ts --outdir=dist --platform=node --target=node20 --sourcemap"
+    "build": "esbuild --bundle src/index.ts --outdir=dist --platform=node --target=node20 --sourcemap",
+    "lint": "eslint --ext .ts src"
   },
   "dependencies": {
+    "@fastify/cors": "^9.0.1",
     "@repo/api": "workspace:*",
     "@ts-rest/core": "^3.33.0",
+    "@ts-rest/fastify": "^3.33.0",
     "fastify": "^4.26.1",
+    "pino": "^8.19.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

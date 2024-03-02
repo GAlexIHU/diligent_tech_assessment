@@ -17,5 +17,6 @@ export const movieContract = c.router({
       }),
     },
     summary: "Search for movies",
+    validateResponseOnClient: true,
   },
 });
