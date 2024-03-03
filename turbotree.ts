@@ -31,8 +31,16 @@ const getWatchExpression = (p: PackageInfo): WatchExpression => [
       ["dirname", p.root],
       ["anyof", ["match", "index.html", "wholename"]],
     ],
-    // watch .json files in the root
-    ["allof", ["dirname", p.root], ["anyof", ["match", "*.json", "basename"]]],
+    // watch configuration files in the root
+    [
+      "allof",
+      ["dirname", p.root],
+      [
+        "anyof",
+        ["match", "*.json", "basename"],
+        ["match", "*.env", "basename"],
+      ],
+    ],
     // watch .css, .ts, and .tsx files in src
     [
       "allof",

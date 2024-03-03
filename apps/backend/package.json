@@ -8,17 +8,21 @@
     "lint": "eslint --ext .ts src"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^0.24.0",
     "@fastify/cors": "^9.0.1",
     "@repo/api": "workspace:*",
     "@ts-rest/core": "^3.33.0",
     "@ts-rest/fastify": "^3.33.0",
+    "convict": "^6.2.4",
     "fastify": "^4.26.1",
+    "http-graceful-shutdown": "^3.1.13",
     "pino": "^8.19.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/convict": "^6.1.6",
     "@types/node": "^20.10.6",
     "esbuild": "^0.20.1",
     "eslint": "^8.56.0",
