@@ -3,6 +3,7 @@
   "scripts": {
     "start": "turbo start",
     "build": "turbo build",
+    "test": "turbo test",
     "dev": "turbo dev",
     "watch": "tsx --tsconfig tsconfig.watch.json turbotree.ts",
     "lint": "turbo lint"

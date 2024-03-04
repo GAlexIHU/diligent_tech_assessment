@@ -6,9 +6,9 @@ interface CachingConfig {
 }
 
 type KeyHasher<T> = (args: T) => { value: string; hits: string };
-const defaultKeyHasher: KeyHasher<{ [s: string]: unknown }> = (args) => {
+export const defaultKeyHasher: KeyHasher<{ [s: string]: unknown }> = (args) => {
   const entries = Object.entries(args);
-  const key = entries.map(([k, v]) => `${k}=${v}`).join(":");
+  const key = entries.map(([k, v]) => `${k}=${v}`).join(":") || "default";
   return {
     value: key,
     hits: `${key}:hits`,
@@ -48,6 +48,7 @@ export const cacherFactory =
 
     const results = await useCase(args);
     await cacheAdapter.set(valueKey, results, config.ttlSeconds);
+    await cacheAdapter.set(hitsKey, 0);
     return {
       value: results,
       cached: false,

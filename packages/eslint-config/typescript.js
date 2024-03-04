@@ -90,5 +90,10 @@ module.exports = {
     {
       files: ["*.js?(x)", "*.ts?(x)"],
     },
+    {
+      files: ["*.test.ts", "*.spec.ts"],
+      plugins: ["vitest"],
+      extends: ["plugin:vitest/recommended"],
+    },
   ],
 };
