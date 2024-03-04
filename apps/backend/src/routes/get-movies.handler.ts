@@ -10,7 +10,7 @@ export const getMoviesRouteHandlerFactory: (deps: {
   searchMoviesUseCase: SearchMoviesUseCase;
 }) => RouteHandler<typeof api.movie.getMovies> =
   ({ searchMoviesUseCase }) =>
-  async ({ query: { searchTerm }, request }) => {
+  async ({ query: { searchTerm, page }, request }) => {
     type EOf<T> = T extends (infer E)[] ? E : never;
     type APIMovie = EOf<
       z.infer<(typeof api.movie.getMovies.responses)["200"]>["results"]
@@ -19,17 +19,22 @@ export const getMoviesRouteHandlerFactory: (deps: {
       id: movie.id,
       title: movie.title,
       overview: movie.overview,
+      releaseDate: movie.releaseDate,
+      image: movie.image,
+      popularity: movie.popularity,
     });
 
     const searchResults = await runInContext(
       { logger: request.log as unknown as Logger },
       searchMoviesUseCase,
-    )({ searchTerm });
+    )({ searchTerm, page });
 
     return {
       status: 200,
       body: {
         results: searchResults.movies.map(mapMovie),
+        page: searchResults.pagination.page,
+        totalPages: searchResults.pagination.totalPages,
       },
     };
   };

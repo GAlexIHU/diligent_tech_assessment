@@ -17,6 +17,7 @@ export interface MovieDBAdapter {
 interface MovieDBServiceConfig {
   apiKey: string;
   baseUrl: string;
+  imageBaseUrl: string;
 }
 
 class MovieDBError extends Error {
@@ -37,6 +38,11 @@ export const movieDBServiceFactory: (
     id: movieDBMovie.id.toString(),
     title: movieDBMovie.title,
     overview: movieDBMovie.overview,
+    releaseDate: movieDBMovie?.release_date ?? undefined,
+    image: movieDBMovie?.backdrop_path
+      ? join(config.imageBaseUrl, "/original", movieDBMovie.backdrop_path)
+      : undefined,
+    popularity: movieDBMovie?.vote_average ?? undefined,
   });
 
   return {

@@ -4,7 +4,7 @@ import { AsyncUseCase } from "./use-case";
 
 export type SearchMoviesUseCase = AsyncUseCase<
   { searchTerm: string; page?: number },
-  { movies: Movie[] }
+  { movies: Movie[]; pagination: { page: number; totalPages: number } }
 >;
 
 export type SearchMoviesUseCaseDependencies = {
@@ -22,5 +22,9 @@ export const searchMoviesUseCaseFactory: (
     });
     return {
       movies: searchResults.results,
+      pagination: {
+        page: searchResults.page,
+        totalPages: searchResults.totalPages,
+      },
     };
   };

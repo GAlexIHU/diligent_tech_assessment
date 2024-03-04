@@ -10,10 +10,13 @@ export const movieContract = c.router({
     path: `/movies`,
     query: z.object({
       searchTerm: z.string().min(3),
+      page: z.coerce.number().optional(),
     }),
     responses: {
       200: z.object({
         results: z.array(MovieSchema),
+        page: z.number(),
+        totalPages: z.number(),
       }),
     },
     summary: "Search for movies",

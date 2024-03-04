@@ -10,7 +10,7 @@ export const movieDbMovieSchema = z.object({
   overview: z.string(),
   popularity: z.number(),
   poster_path: z.string().nullable(),
-  release_date: z.string(),
+  release_date: z.string().nullable(),
   title: z.string(),
   video: z.boolean(),
   vote_average: z.number().nullable(),

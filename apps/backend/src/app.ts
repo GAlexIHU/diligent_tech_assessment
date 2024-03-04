@@ -28,6 +28,7 @@ export const createApp = (config: Config): App => {
       config: {
         apiKey: config.moviedb.apiKey,
         baseUrl: config.moviedb.url,
+        imageBaseUrl: config.moviedb.imageBaseUrl,
       },
     },
     { getLogger: () => getFromContext("logger") },

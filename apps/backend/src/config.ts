@@ -18,7 +18,13 @@ const config = convict({
       doc: "The URL for The Movie Database.",
       format: String,
       default: "https://api.themoviedb.org/3",
-      env: "MOVIEDB_URL",
+      env: "MOVIEDB_API_URL",
+    },
+    imageBaseUrl: {
+      doc: "The base URL for images from The Movie Database.",
+      format: String,
+      default: "https://image.tmdb.org/t/p",
+      env: "MOVIEDB_IMAGE_BASE_URL",
     },
   },
 });
