@@ -1,6 +1,7 @@
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationFirst,
   PaginationItem,
   PaginationLast,
@@ -35,6 +36,17 @@ function getDisplayablePages(
   return displayablePages;
 }
 
+function showStartingEllipsis(
+  currentPage: number,
+  totalPages: number,
+): boolean {
+  return currentPage > 2 && totalPages > 4;
+}
+
+function showEndingEllipsis(currentPage: number, totalPages: number): boolean {
+  return currentPage < totalPages - 1 && totalPages > 4;
+}
+
 function PaginationBar({ page, setPage, totalPages }: PaginationProps) {
   const safeSetPage = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -54,6 +66,16 @@ function PaginationBar({ page, setPage, totalPages }: PaginationProps) {
         <PaginationItem>
           <PaginationPrevious short onClick={() => safeSetPage(page - 1)} />
         </PaginationItem>
+        {showStartingEllipsis(page, totalPages) && (
+          <>
+            <PaginationItem>
+              <PaginationLink onClick={() => safeSetPage(1)}>1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          </>
+        )}
         {getDisplayablePages(page, totalPages).map((pageNumber) => (
           <PaginationItem key={pageNumber}>
             <PaginationLink
@@ -64,6 +86,18 @@ function PaginationBar({ page, setPage, totalPages }: PaginationProps) {
             </PaginationLink>
           </PaginationItem>
         ))}
+        {showEndingEllipsis(page, totalPages) && (
+          <>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink onClick={() => safeSetPage(totalPages)}>
+                {totalPages}
+              </PaginationLink>
+            </PaginationItem>
+          </>
+        )}
         <PaginationItem>
           <PaginationNext short onClick={() => safeSetPage(page + 1)} />
         </PaginationItem>

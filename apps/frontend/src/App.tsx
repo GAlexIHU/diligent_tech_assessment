@@ -49,9 +49,10 @@ function App() {
 
   useEffect(() => {
     if (result.isSuccess) {
+      window.scrollTo({ top: 0, behavior: "instant" });
       setTotalPages(result.data.body.totalPages);
     }
-  }, [result]);
+  }, [result.data?.body]);
 
   return (
     <>
