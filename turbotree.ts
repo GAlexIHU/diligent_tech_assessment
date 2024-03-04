@@ -39,6 +39,7 @@ const getWatchExpression = (p: PackageInfo): WatchExpression => [
         "anyof",
         ["match", "*.json", "basename"],
         ["match", "*.env", "basename"],
+        ["match", "*.env.local", "basename"],
       ],
     ],
     // watch .css, .ts, and .tsx files in src

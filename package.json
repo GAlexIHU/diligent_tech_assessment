@@ -1,6 +1,7 @@
 {
   "name": "diligent_tech_assessment",
   "scripts": {
+    "start": "turbo start",
     "build": "turbo build",
     "dev": "turbo dev",
     "watch": "tsx --tsconfig tsconfig.watch.json turbotree.ts",

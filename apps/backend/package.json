@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "nodemon",
     "build": "esbuild --bundle src/index.ts --outdir=dist --platform=node --target=node20 --sourcemap",
     "lint": "eslint --ext .ts src"

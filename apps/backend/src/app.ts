@@ -67,7 +67,7 @@ export const createApp = (config: Config): App => {
         await server.register(cors, {});
         await server.register(s.plugin(router));
         await server.ready();
-        server.listen({ port: config.port });
+        server.listen({ port: config.port, host: "0.0.0.0" });
       } catch (error) {
         server.log.error(error);
         throw error;
