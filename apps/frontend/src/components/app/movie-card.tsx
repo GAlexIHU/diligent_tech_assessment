@@ -38,7 +38,7 @@ function MovieCard({ movie }: { movie: APIMovie }) {
           <CardTitle className="absolute bottom-0 m-0 p-2 text-left backdrop-blur-sm bg-white/55 w-full">
             {movie.title}
           </CardTitle>
-          {movie.popularity != undefined && (
+          {movie.popularity !== undefined && (
             <Score
               score={movie.popularity.toFixed(1)}
               classNames="absolute top-0 right-0 m-1 mt-2"
