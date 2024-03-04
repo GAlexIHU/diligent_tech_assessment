@@ -27,6 +27,14 @@ const config = convict({
       env: "MOVIEDB_IMAGE_BASE_URL",
     },
   },
+  redis: {
+    url: {
+      doc: "The URL for the Redis server.",
+      format: String,
+      default: "redis://localhost:6379",
+      env: "REDIS_URL",
+    },
+  },
 });
 
 type OfConfig<T> = T extends convict.Config<infer U> ? U : never;

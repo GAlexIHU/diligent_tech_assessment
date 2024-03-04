@@ -14,6 +14,7 @@ export const movieContract = c.router({
     }),
     responses: {
       200: z.object({
+        cached: z.boolean(),
         results: z.array(MovieSchema),
         page: z.number(),
         totalPages: z.number(),

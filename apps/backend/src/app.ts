@@ -2,7 +2,9 @@ import cors from "@fastify/cors";
 import { api } from "@repo/api/v1";
 import { initServer } from "@ts-rest/fastify";
 import fastify, { FastifyInstance } from "fastify";
+import { createClient, RedisClientType } from "redis";
 import packageJson from "../package.json";
+import { redisServiceFactory } from "./adapters/cache.adapter";
 import { movieDBServiceFactory } from "./adapters/moviedb.adapter";
 import { Config } from "./config";
 import { getFromContext } from "./framework/context";
@@ -19,6 +21,10 @@ interface App {
 }
 
 export const createApp = (config: Config): App => {
+  const redisClient = createClient({
+    url: config.redis.url,
+  }) as RedisClientType;
+
   const server = fastify({
     logger: rootLogger.child({ module: packageJson.name }),
   });
@@ -34,8 +40,18 @@ export const createApp = (config: Config): App => {
     { getLogger: () => getFromContext("logger") },
   );
 
+  const redisService = redisServiceFactory(
+    {
+      redisClient: redisClient,
+    },
+    {
+      getLogger: () => getFromContext("logger"),
+    },
+  );
+
   const searchMoviesUseCase = searchMoviesUseCaseFactory({
     movieDBAdapter: movieDbService,
+    cacheAdapter: redisService,
   });
 
   const router = s.router(api, {
@@ -47,6 +63,7 @@ export const createApp = (config: Config): App => {
   return {
     run: async () => {
       try {
+        await redisClient.connect();
         await server.register(cors, {});
         await server.register(s.plugin(router));
         await server.ready();

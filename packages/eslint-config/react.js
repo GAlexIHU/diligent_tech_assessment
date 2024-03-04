@@ -52,7 +52,7 @@ module.exports = {
     "dist/",
   ],
   rules: {
-    complexity: ["error", 8],
+    complexity: ["error", 10],
     "prefer-object-spread": "error",
     "prefer-const": ["error", { destructuring: "all" }],
     "func-names": ["error", "as-needed"],

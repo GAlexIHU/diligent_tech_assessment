@@ -27,7 +27,7 @@ export const getMoviesRouteHandlerFactory: (deps: {
     const searchResults = await runInContext(
       { logger: request.log as unknown as Logger },
       searchMoviesUseCase,
-    )({ searchTerm, page });
+    )({ searchTerm, page: page ?? 1 });
 
     return {
       status: 200,
@@ -35,6 +35,7 @@ export const getMoviesRouteHandlerFactory: (deps: {
         results: searchResults.movies.map(mapMovie),
         page: searchResults.pagination.page,
         totalPages: searchResults.pagination.totalPages,
+        cached: searchResults.cached,
       },
     };
   };

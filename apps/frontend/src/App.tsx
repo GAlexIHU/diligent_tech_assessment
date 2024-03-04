@@ -2,7 +2,7 @@ import "./App.css";
 import { api } from "@repo/api/v1";
 import { initQueryClient } from "@ts-rest/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import MovieCard from "./components/app/movie-card";
 import PaginationBar from "./components/app/pagination-bar";
@@ -54,13 +54,24 @@ function App() {
     }
   }, [result.data?.body]);
 
+  const cacheIndicatorFragment = useMemo(() => {
+    if (result.isSuccess) {
+      return (
+        <div className="text-sm text-gray-500 my-2">
+          {result.data.body.cached ? "Cached" : "Fetched"}
+        </div>
+      );
+    }
+    return null;
+  }, [result.data?.body.cached, result.isSuccess]);
+
   return (
     <>
-      <div className="mx-auto">
+      <div className="mx-auto container">
         <h1 className="text-4xl font-bold text-center my-10">
           MovieDB Movie Search
         </h1>
-        <div className="flex items-center gap-4 mx-auto container">
+        <div className="flex items-center gap-4 mx-auto">
           <Input
             value={searchTerm}
             onChange={handleSearchTermChange}
@@ -68,11 +79,14 @@ function App() {
           />
           <Button onClick={() => result.refetch()}>Search</Button>
         </div>
-        <div>
+        <div className="">
           {result.isLoading && <div>Loading...</div>}
           {result.isError && <div>Error: {result.error.status}</div>}
+          {cacheIndicatorFragment}
+        </div>
+        <div>
           {result.isSuccess && (
-            <div className="container mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="mx-auto my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {result.data.body.results.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}

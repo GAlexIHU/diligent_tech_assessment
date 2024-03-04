@@ -20,7 +20,7 @@ interface MovieDBServiceConfig {
   imageBaseUrl: string;
 }
 
-class MovieDBError extends Error {
+export class MovieDBError extends Error {
   constructor(message: string) {
     super(message);
   }

@@ -27,7 +27,7 @@ function Score({
 
 function MovieCard({ movie }: { movie: APIMovie }) {
   return (
-    <Card className="flex flex-col h-full max-w-sm overflow-hidden shadow-md hover:shadow-lg transition duration-50">
+    <Card className="flex flex-col h-full max-w-lg overflow-hidden shadow-md hover:shadow-lg transition duration-50">
       <CardHeader className="relative p-3 pb-0">
         <AspectRatio ratio={5 / 3}>
           <img
