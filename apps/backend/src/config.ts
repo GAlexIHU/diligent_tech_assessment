@@ -35,6 +35,12 @@ const config = convict({
       env: "REDIS_URL",
     },
   },
+  cacheSeconds: {
+    doc: "The number of seconds to cache data.",
+    format: "int",
+    default: 120,
+    env: "CACHE_SECONDS",
+  },
 });
 
 type OfConfig<T> = T extends convict.Config<infer U> ? U : never;

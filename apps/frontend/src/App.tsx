@@ -43,7 +43,7 @@ function App() {
       queryKey: ["movies", ...queryKeys],
       retry: (_, error) => error.status !== 400,
       enabled: formSchema.safeParse({ searchTerm: queryKeys[0] }).success,
-      placeholderData: (previous) => previous,
+      placeholderData: (previous, err) => (err ? undefined : previous),
     },
   );
 

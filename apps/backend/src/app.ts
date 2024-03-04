@@ -7,6 +7,7 @@ import packageJson from "../package.json";
 import { redisServiceFactory } from "./adapters/cache.adapter";
 import { movieDBServiceFactory } from "./adapters/moviedb.adapter";
 import { Config } from "./config";
+import { cacherFactory } from "./framework/cached";
 import { getFromContext } from "./framework/context";
 import { rootLogger } from "./framework/logger";
 import { getMoviesRouteHandlerFactory } from "./routes/get-movies.handler";
@@ -49,14 +50,20 @@ export const createApp = (config: Config): App => {
     },
   );
 
+  const cache = cacherFactory({
+    cacheAdapter: redisService,
+    config: {
+      ttlSeconds: config.cacheSeconds,
+    },
+  });
+
   const searchMoviesUseCase = searchMoviesUseCaseFactory({
     movieDBAdapter: movieDbService,
-    cacheAdapter: redisService,
   });
 
   const router = s.router(api, {
     movie: s.router(api.movie, {
-      getMovies: getMoviesRouteHandlerFactory({ searchMoviesUseCase }),
+      getMovies: getMoviesRouteHandlerFactory({ searchMoviesUseCase, cache }),
     }),
   });
 

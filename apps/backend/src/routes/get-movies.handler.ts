@@ -1,15 +1,18 @@
 import { api } from "@repo/api/v1";
 import z from "zod";
 import { Movie } from "../entities/movie.entity";
+import { Cacher } from "../framework/cached";
 import { runInContext } from "../framework/context";
 import { Logger } from "../framework/logger";
 import { SearchMoviesUseCase } from "../use-cases/search-movies.use-case";
+import { AsyncUseCaseInput, AsyncUseCaseOutput } from "../use-cases/use-case";
 import { RouteHandler } from "./route";
 
 export const getMoviesRouteHandlerFactory: (deps: {
   searchMoviesUseCase: SearchMoviesUseCase;
+  cache: Cacher;
 }) => RouteHandler<typeof api.movie.getMovies> =
-  ({ searchMoviesUseCase }) =>
+  ({ searchMoviesUseCase, cache }) =>
   async ({ query: { searchTerm, page }, request }) => {
     type EOf<T> = T extends (infer E)[] ? E : never;
     type APIMovie = EOf<
@@ -24,18 +27,21 @@ export const getMoviesRouteHandlerFactory: (deps: {
       popularity: movie.popularity,
     });
 
-    const searchResults = await runInContext(
+    const { value, cached } = await runInContext(
       { logger: request.log as unknown as Logger },
-      searchMoviesUseCase,
+      cache<
+        AsyncUseCaseInput<SearchMoviesUseCase>,
+        AsyncUseCaseOutput<SearchMoviesUseCase>
+      >(searchMoviesUseCase),
     )({ searchTerm, page: page ?? 1 });
 
     return {
       status: 200,
       body: {
-        results: searchResults.movies.map(mapMovie),
-        page: searchResults.pagination.page,
-        totalPages: searchResults.pagination.totalPages,
-        cached: searchResults.cached,
+        results: value.movies.map(mapMovie),
+        page: value.pagination.page,
+        totalPages: value.pagination.totalPages,
+        cached: cached,
       },
     };
   };
