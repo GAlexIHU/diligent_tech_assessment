@@ -82,7 +82,7 @@ export const movieDBServiceFactory: (
           totalResults: searchResult.total_results,
         };
       } catch (error) {
-        getLogger().error("Failed to search movies", error);
+        getLogger().error(`Failed to search movies: ${error}`);
         if (error instanceof MovieDBError) {
           throw error;
         }
