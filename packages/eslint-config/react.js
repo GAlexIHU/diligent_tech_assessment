@@ -92,6 +92,7 @@ module.exports = {
     "@typescript-eslint/no-unnecessary-type-arguments": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "@typescript-eslint/no-useless-empty-export": "error",
+    "react/prop-types": "off",
     "@typescript-eslint/no-throw-literal": [
       "error",
       {
