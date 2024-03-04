@@ -9,7 +9,7 @@ Alternatively, the list of dependencies:
 - Node 20
 - Docker (not part of the Nix environment, needs to live on host)
 
-The project uses `yarn V2` (4.1) as its package manager. Yarn is intalled using `corepack`.
+The project uses `pnpm` as its package manager. PnPm is intalled using `corepack`.
 
 > When using the Nix environment, `corepack enable` requires sudo privileges as `/nix/store` is group readonly.
 
